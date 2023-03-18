@@ -12,22 +12,22 @@ let options = {
     // Set the channel name.
     channel: "test",
     // Pass your temp token here.
-    token: "007eJxTYCi8sumJUbfbg5qaxSdP/VxZX75W4v4R8+POi/a2yBa8vFOuwGBpkZhiZmxslGRpkGaSZJRqYWJgYGCYbJFiZpBkkJpqeHiZYEpDICMDs8IcVkYGCATxWRhKUotLGBgAO2YhqQ==",
+    token: "007eJxTYMhMZzdZ+9l82zr/1V36x7Wfvj9+IHT+3fD+lvrW25LXnNcpMFhaJKaYGRsbJVkapJkkGaVamBgYGBgmW6SYGSQZpKYaXtUQTWkIZGT4X7qcmZEBAkF8FoaS1OISBgYAubchAg==",
     // Set the user ID.
     uid: parseInt(Math.random()),
 };
 
 async function startBasicCall() {
     // Create an AgoraRTCClient object.
-	
-    rtc.client = AgoraRTC.createClient({mode: "rtc", codec: "vp8"});
+
+    rtc.client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
 
     // Listen for the "user-published" event, from which you can get an AgoraRTCRemoteUser object.
     rtc.client.on("user-published", async (user, mediaType) => {
         // Subscribe to the remote user when the SDK triggers the "user-published" event
         await rtc.client.subscribe(user, mediaType);
         console.log("subscribe success");
-		console.log(user)
+        console.log(user)
         // If the remote user publishes a video track.
         if (mediaType === "video") {
             // Get the RemoteVideoTrack object in the AgoraRTCRemoteUser object.
@@ -72,7 +72,7 @@ async function startBasicCall() {
             // Create a local video track from the video captured by a camera.
             rtc.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
             // Publish the local audio and video tracks to the RTC channel.
-            await rtc.client.publish([rtc.localAudioTrack,rtc.localVideoTrack]);
+            await rtc.client.publish([rtc.localAudioTrack, rtc.localVideoTrack]);
             // Dynamically create a container in the form of a DIV element for playing the local video track.
             const localPlayerContainer = document.createElement("div");
             // Specify the ID of the DIV container. You can use the uid of the local user.
@@ -96,10 +96,10 @@ async function startBasicCall() {
                 // Destroy the dynamically created DIV containers.
                 const playerContainer = document.getElementById(user.uid);
                 playerContainer && playerContainer.remove();
-	
+
             });
-			const localPlayerContainer = document.getElementById(options.uid);
-			localPlayerContainer && localPlayerContainer.remove();
+            const localPlayerContainer = document.getElementById(options.uid);
+            localPlayerContainer && localPlayerContainer.remove();
             // Leave the channel.
             await rtc.client.leave();
         };
